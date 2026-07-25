@@ -1,0 +1,9 @@
+name: Bug report
+description: الإبلاغ عن خلل
+title: "bug: "
+labels: [bug]
+body:
+  - type: textarea
+    attributes: { label: الوصف والخطوات لإعادة الإنتاج }
+  - type: textarea
+    attributes: { label: الأثر الأمني أو التربوي أو التشغيلي }
