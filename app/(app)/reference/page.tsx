@@ -1,0 +1,2 @@
+import { ReferenceSearch } from "@/components/reference/reference-search";
+export default function ReferencePage() { return <section><p className="text-sm font-semibold text-emerald-700">Knowledge Engine</p><h1 className="mt-1 text-3xl font-bold">البحث في المرجع المعتمد</h1><p className="mt-2 text-slate-600">لا يقدم نبراس ادعاءً منهجياً رسمياً من دون وثيقة وإصدار وصفحة.</p><div className="mt-7 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-6"><ReferenceSearch /></div></section>; }

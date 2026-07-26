@@ -1,0 +1,2 @@
+import { FirstResourcePreview } from "@/components/studio/first-resource-preview";
+export default function StudioPage() { return <section><p className="text-sm font-semibold text-emerald-700">Content Studio</p><h1 className="mt-1 text-3xl font-bold">إنشاء مورد تربوي موثق</h1><p className="mt-2 text-slate-600">المورد الأول مبني على مرجع تاريخ الأولى متوسط، وسيصبح قابلاً للحفظ والربط بالخطة في التدفق التالي.</p><div className="mt-7 max-w-3xl"><FirstResourcePreview /></div></section>; }
