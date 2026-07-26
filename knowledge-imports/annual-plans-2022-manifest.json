@@ -1,0 +1,19 @@
+{
+  "collection": "المخططات السنوية المعتمدة 2022",
+  "source": "وثائق المستخدم",
+  "status": "queued_for_structured_extraction_and_review",
+  "documents": [
+    {"subject":"history","grade":"1am","pages":7,"sha256":"7d385fcdb07fdd03f7071876589cc30342dacdebf7b397bfd66fc6f9d7963aef","sourceFile":"المخططات السنوية 2022 تاريخ السنة الأولى متوسط (1).pdf","candidateCompetencePages":[3,5,6,7]},
+    {"subject":"history","grade":"2am","pages":8,"sha256":"fae09fa82baefaaf97d87db38c751cb9d7e63fe536640b85b7a3d63d5e2f95c8","sourceFile":"المخططات السنوية 2022 تاريخ السنة الثانية متوسط (1).pdf","candidateCompetencePages":[3,5,6,7]},
+    {"subject":"history","grade":"3am","pages":11,"sha256":"870e407b1510a5c7c95e77fdda39f4b53f8a6cba60661a4bf873413ef77691b6","sourceFile":"المخططات السنوية 2022 تاريخ السنة الثالثة متوسط.pdf","candidateCompetencePages":[3,5,6,7,8,9,10]},
+    {"subject":"history","grade":"4am","pages":9,"sha256":"9db7e3646b1b0d7a27d923d74cdd66dc85f2b728c31cce629ee47cbc1d54c08b","sourceFile":"المخططات السنوية 2022 تاريخ السنة الرابعة متوسط (1).pdf","candidateCompetencePages":[3,5,6,7]},
+    {"subject":"geography","grade":"1am","pages":11,"sha256":"9f612af044fb43c4d96a481c9bf95692de260f3bce6319864baee4cd4f4fc83f","sourceFile":"المخططات السنوية 2022 جغرافيا السنة الأولى متوسط (1).pdf","candidateCompetencePages":[3,5,6,7,8,9,10]},
+    {"subject":"geography","grade":"2am","pages":10,"sha256":"798e8b31bf5cbeb9ccee1505f428442d966b5955350531d4a1d7b1cc1a19d87e","sourceFile":"المخططات السنوية 2022 جغرافيا السنة الثانية متوسط.pdf","candidateCompetencePages":[3,5,6,7,9,10]},
+    {"subject":"geography","grade":"3am","pages":8,"sha256":"91ab3bcbcb2a2563436e107fe7b4c86aae342436c0a9561ada11292d8a619070","sourceFile":"المخططات السنوية 2022 جغرافيا السنة الثالثة متوسط (1).pdf","candidateCompetencePages":[3,5,6,7,8]},
+    {"subject":"geography","grade":"4am","pages":7,"sha256":"dba34db68ffb5043920de8d89547d00803e2da860dcc10685628f13a3e6076bb","sourceFile":"المخططات السنوية 2022 جغرافيا السنة الرابعة متوسط (1).pdf","candidateCompetencePages":[3,5,6,7]},
+    {"subject":"civic-education","grade":"1am","pages":10,"sha256":"6e717d2f14b22137058198d9bff2b14ef44d39d3edb043ddf69414f598346b51","sourceFile":"المخططات السنوية 2022 تربية مدنية السنة الأولى متوسط.pdf","candidateCompetencePages":[3,5,6,7,8]},
+    {"subject":"civic-education","grade":"2am","pages":10,"sha256":"5e01743f6054b915ddc268ac0fe3aa7d1ee87c6114a54f4c1b0a9e4f6cac4860","sourceFile":"المخططات السنوية 2022 تربية مدنية السنة الثانية متوسط (1).pdf","candidateCompetencePages":[4,5,6,7,8]},
+    {"subject":"civic-education","grade":"3am","pages":10,"sha256":"904bad4dacfe8fe2abb281fd58f030e5c38048b6a82ca281956ef84dc0c94eef","sourceFile":"المخططات السنوية 2022 تربية مدنية السنة الثالثة متوسط.pdf","candidateCompetencePages":[3,5,7,8,9,10]},
+    {"subject":"civic-education","grade":"4am","pages":8,"sha256":"8a88a734dca6d3fa6f51692d558a9991792c8cbec5c43068e5c4bf21c42a7a7a","sourceFile":"المخططات السنوية 2022 تربية مدنية السنة الرابعة متوسط (1).pdf","candidateCompetencePages":[3,5,6,7]}
+  ]
+}
