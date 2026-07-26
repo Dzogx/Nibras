@@ -87,6 +87,25 @@ create table public.document_subjects (
   grade_level_id uuid references public.grade_levels(id) on delete restrict,
   primary key (document_version_id, subject_id, grade_level_id)
 );
+create table public.curriculum_segments (
+  id uuid primary key default gen_random_uuid(),
+  curriculum_version_id uuid references public.curriculum_versions(id) on delete set null,
+  subject_id uuid not null references public.subjects(id) on delete restrict,
+  grade_level_id uuid not null references public.grade_levels(id) on delete restrict,
+  term_number smallint check (term_number between 1 and 3),
+  sort_order integer not null default 0 check (sort_order >= 0),
+  title text not null check (char_length(trim(title)) between 3 and 300),
+  comprehensive_competence text,
+  terminal_competence text,
+  source_document_version_id uuid references public.document_versions(id) on delete set null,
+  source_page_number integer check (source_page_number is null or source_page_number > 0),
+  status public.document_status not null default 'draft',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index curriculum_segments_lookup_idx on public.curriculum_segments(subject_id, grade_level_id, term_number, sort_order);
+create trigger curriculum_segments_updated_at before update on public.curriculum_segments for each row execute function public.set_updated_at();
+
 create table public.knowledge_review_tasks (
   id uuid primary key default gen_random_uuid(),
   document_page_id uuid not null references public.document_pages(id) on delete cascade,
@@ -114,6 +133,7 @@ alter table public.document_versions enable row level security;
 alter table public.document_pages enable row level security;
 alter table public.document_chunks enable row level security;
 alter table public.document_subjects enable row level security;
+alter table public.curriculum_segments enable row level security;
 alter table public.knowledge_review_tasks enable row level security;
 
 -- Authenticated users may read only published knowledge. Service role performs ingestion/review.
@@ -125,3 +145,4 @@ create policy "authenticated users read published document versions" on public.d
 create policy "authenticated users read pages of published versions" on public.document_pages for select to authenticated using (exists (select 1 from public.document_versions v where v.id = document_version_id and v.status = 'published'));
 create policy "authenticated users read chunks of published versions" on public.document_chunks for select to authenticated using (exists (select 1 from public.document_versions v where v.id = document_version_id and v.status = 'published'));
 create policy "authenticated users read published document subject mappings" on public.document_subjects for select to authenticated using (exists (select 1 from public.document_versions v where v.id = document_version_id and v.status = 'published'));
+create policy "authenticated users read published curriculum segments" on public.curriculum_segments for select to authenticated using (status = 'published');

@@ -1,0 +1,10 @@
+"use client";
+import { useActionState } from "react";
+import { createClassAction } from "@/app/(app)/planner/actions";
+
+type Option = { id: string; name: string };
+export function ClassForm({ subjects, grades, years }: { subjects: Option[]; grades: Option[]; years: Option[] }) {
+  const [state, action, pending] = useActionState(createClassAction, {});
+  if (!subjects.length || !grades.length || !years.length) return <p className="rounded-lg bg-amber-50 p-4 text-sm text-amber-900">تحتاج مساحة العمل إلى بيانات المادة والمستوى والسنة المعتمدة قبل إضافة قسم.</p>;
+  return <form action={action} className="grid gap-3 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:grid-cols-2"><label className="text-sm">اسم القسم<input required name="name" className="mt-1 w-full rounded-md border border-slate-300 p-2" placeholder="مثال: 1 متوسط أ" /></label><label className="text-sm">عدد التلاميذ<input required name="learnerCount" type="number" min="1" max="80" className="mt-1 w-full rounded-md border border-slate-300 p-2" placeholder="40" /></label><label className="text-sm">المادة<select required name="subjectId" className="mt-1 w-full rounded-md border border-slate-300 p-2">{subjects.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label><label className="text-sm">المستوى<select required name="gradeLevelId" className="mt-1 w-full rounded-md border border-slate-300 p-2">{grades.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label><label className="text-sm sm:col-span-2">السنة الدراسية<select required name="academicYearId" className="mt-1 w-full rounded-md border border-slate-300 p-2">{years.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label><div className="sm:col-span-2"><button disabled={pending} className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-semibold text-white disabled:opacity-60">{pending ? "جارٍ الحفظ…" : "إضافة القسم"}</button>{state.error && <p className="mt-2 text-sm text-red-700">{state.error}</p>}{state.success && <p className="mt-2 text-sm text-emerald-700">تم حفظ القسم.</p>}</div></form>;
+}

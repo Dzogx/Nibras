@@ -4,7 +4,7 @@ import type { Route } from "next";
 const cards = [
   ["المرجع المعتمد", "ابحث في المخططات مع الصفحة والاقتباس.", "/reference", "⌕"],
   ["إنشاء مورد", "أنشئ مسودة حصة مرتبطة بالكفاءة والمصدر.", "/studio", "✦"],
-  ["Teacher OS", "الخطة، التقدم والذاكرة التربوية ستظهر هنا.", "/dashboard", "▦"]
+  ["Teacher OS", "أنشئ القسم والخطة وتابع ما تم إنجازه.", "/planner", "▦"]
 ] as const;
 export default function DashboardPage() {
   return <section><p className="text-sm font-semibold text-emerald-700">مساحة عمل الأستاذ</p><h1 className="mt-1 text-3xl font-bold">مرحباً بك في نبراس</h1><p className="mt-2 max-w-2xl text-slate-600">ابدأ من المرجع المعتمد، ثم حوّل الكفاءة إلى مورد تربوي موثق وقابل للتطوير.</p>
