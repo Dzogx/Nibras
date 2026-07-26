@@ -29,3 +29,10 @@
 
 ## مطابقة التصميم
 لا توجد ميزة مضافة؛ الملفات تحقق Sprint 0. تم تقديم RLS foundation مبكراً استجابة لطلب التنفيذ، لكنه لا يغني عن اختبارات Sprint 1.
+
+## تحديث أمني — 2026-07-26
+- تمت ترقية Next.js و`eslint-config-next` إلى 16.2.12، وأزيلت حزم AI SDK غير المستخدمة من Sprint 0 لتقليل سطح الهجوم.
+- اجتازت lint وtypecheck وunit tests وproduction build بعد الترقية.
+- ما زال `npm audit --omit=dev` يبلغ عن 3 ثغرات عالية في سلسلة Next.js/PostCSS/Sharp، ولا يقدم حالياً إصلاحاً آمناً غير كسرياً.
+- سجل الخطر: `docs/security/dependency-risk-register.md`.
+- القرار لا يزال **No-Go للإنتاج**. لا يبدأ Sprint 1 الذي يضيف بيانات حقيقية أو Auth/RLS إنتاجي قبل معالجة/قبول رسمي للخطر.
