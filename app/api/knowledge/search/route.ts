@@ -8,7 +8,9 @@ export function GET(request: NextRequest) {
   const parsed = querySchema.safeParse({ query: request.nextUrl.searchParams.get("query"), subject: request.nextUrl.searchParams.get("subject") ?? undefined, grade: request.nextUrl.searchParams.get("grade") ?? undefined });
   if (!parsed.success) return NextResponse.json({ error: "أدخل سؤالاً من حرفين على الأقل واختر قيماً صحيحة عند استخدام التصفية." }, { status: 400 });
   const { query, subject, grade } = parsed.data;
-  const structured = (!subject || subject === "history") && (!grade || grade === "1am") ? searchOfficialReference(query, { subject: "history", grade: "1am" }) : [];
+  const selectedSubject = (subject ?? "history") as CorpusSubject;
+  const selectedGrade = (grade ?? "1am") as CorpusGrade;
+  const structured = searchOfficialReference(query, { subject: selectedSubject, grade: selectedGrade });
   const corpus = searchAnnualPlanCorpus(query, { subject: subject as CorpusSubject | undefined, grade: grade as CorpusGrade | undefined });
   return NextResponse.json({ structured, corpus, reviewNotice: "نتائج corpus موثقة بالصفحة والبصمة؛ لا تستخدم لإنشاء خطة أو مورد حتى تمر بالمراجعة البنيوية." });
 }

@@ -1,4 +1,4 @@
-import type { ReferenceSegment } from "@/packages/domain/reference-packs/history-grade-1";
+import type { ReferenceSegment } from "@/packages/domain/reference-packs/types";
 
 export type LessonDraft = {
   title: string;

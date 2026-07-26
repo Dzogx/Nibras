@@ -1,22 +1,4 @@
-export type Citation = {
-  documentTitle: string;
-  versionLabel: string;
-  page: number;
-  checksumSha256: string;
-  excerpt: string;
-};
-
-export type ReferenceSegment = {
-  id: string;
-  subject: "history";
-  grade: "1am";
-  term: 1 | 2 | 3;
-  title: string;
-  comprehensiveCompetence: string;
-  terminalCompetence: string;
-  resources: string[];
-  citation: Citation;
-};
+import type { ReferenceSegment } from "@/packages/domain/reference-packs/types";
 
 const documentTitle = "المخططات السنوية 2022 تاريخ السنة الأولى متوسط";
 const versionLabel = "المخططات السنوية المعتمدة 2022";

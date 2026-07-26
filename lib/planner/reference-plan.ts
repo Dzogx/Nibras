@@ -1,10 +1,10 @@
-import { historyGrade1Reference } from "@/packages/domain/reference-packs/history-grade-1";
+import { getReviewedReferencePack } from "@/packages/domain/reference-packs/registry";
 
 export type ReferencePlanItem = { title: string; sortOrder: number; plannedMinutes: number; referenceMetadata: Record<string, unknown> };
 
 export function getReferencePlanItems(subjectCode: string, gradeCode: string): ReferencePlanItem[] {
-  if (subjectCode !== "history" || gradeCode !== "1am") return [];
-  return historyGrade1Reference.map((segment, index) => ({
+  const pack = getReviewedReferencePack(subjectCode as "history" | "geography" | "civic-education", gradeCode as "1am" | "2am" | "3am" | "4am");
+  return pack.map((segment, index) => ({
     title: segment.title,
     sortOrder: index,
     plannedMinutes: 55,

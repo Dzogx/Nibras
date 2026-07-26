@@ -1,0 +1,10 @@
+import type { ReferenceSegment } from "@/packages/domain/reference-packs/types";
+const title = "المخططات السنوية 2022 جغرافيا السنة الأولى متوسط";
+const versionLabel = "المخططات السنوية المعتمدة 2022";
+const checksumSha256 = "9f612af044fb43c4d96a481c9bf95692de260f3bce6319864baee4cd4f4fc83f";
+const comprehensiveCompetence = "ربط العلاقة بين الإنسان وأساليب تأقلمه مع مجاله الجغرافي، بعد الكشف عن التنوع والتباين الجغرافيين في العالم.";
+export const geographyGrade1Reference: ReferenceSegment[] = [
+  { id: "geography-1am-term-1-geographical-space", subject: "geography", grade: "1am", term: 1, title: "المجال الجغرافي", comprehensiveCompetence, terminalCompetence: "يعتمد معالم وإحداثيات جغرافية للتموقع وتحديد المجال الجغرافي، مبرزا أساليب تأقلم الإنسان مع بيئات جغرافية متنوعة.", resources: ["شكل الأرض", "الإحداثيات الجغرافية", "حساب الوقت", "التضاريس", "النطاقات المناخية", "تأقلم الإنسان مع البيئات الجغرافية"], citation: { documentTitle: title, versionLabel, page: 5, checksumSha256, excerpt: "يعتمد معالم وإحداثيات جغرافية للتموقع وتحديد المجال الجغرافي، مبرزا أساليب تأقلم الإنسان مع بيئات جغرافية متنوعة." } },
+  { id: "geography-1am-term-2-population-development", subject: "geography", grade: "1am", term: 2, title: "السكان والتنمية", comprehensiveCompetence, terminalCompetence: "يحلل العوامل المتحكمة في توزيع السكان مقترحا حلولا لمشاكل التنمية.", resources: ["توزيع السكان", "المراكز الكبرى للتجمع السكاني", "مشاكل التنمية"], citation: { documentTitle: title, versionLabel, page: 7, checksumSha256, excerpt: "يحلل العوامل المتحكمة في توزيع السكان مقترحا حلولا لمشاكل التنمية." } },
+  { id: "geography-1am-term-3-population-environment", subject: "geography", grade: "1am", term: 3, title: "السكان والبيئة", comprehensiveCompetence, terminalCompetence: "ينطلق من نشاط الإنسان وتهيئته للإقليم مقترحا حلولا تحقق التوازن البيئي.", resources: ["التدهور البيئي", "التهيئة الإقليمية", "اقتراح حل لمشكل بيئي قريب"], citation: { documentTitle: title, versionLabel, page: 9, checksumSha256, excerpt: "ينطلق من نشاط الإنسان وتهيئته للإقليم مقترحا حلولا تحقق التوازن البيئي." } }
+];
