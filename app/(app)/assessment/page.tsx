@@ -1,0 +1,2 @@
+import { AssessmentStructureViewer } from "@/components/assessment/assessment-structure-viewer";
+export default function AssessmentPage() { return <section><p className="text-sm font-semibold text-emerald-700">Assessment Bank</p><h1 className="mt-1 text-3xl font-bold">التقويم التحصيلي</h1><p className="mt-2 max-w-3xl text-slate-600">اضبط البنية والنقاط قبل إنشاء الوضعيات والأسئلة. ترتبط الرابعة متوسط بالدليل الرسمي، بينما تبقى المستويات الأخرى قابلة للتعديل وفق التدرج المعتمد.</p><div className="mt-7 max-w-3xl"><AssessmentStructureViewer /></div></section>; }

@@ -5,7 +5,8 @@ const links = [
   { href: "/dashboard", label: "لوحة العمل", icon: "◈" },
   { href: "/reference", label: "المرجع المعتمد", icon: "⌕" },
   { href: "/studio", label: "إنشاء مورد", icon: "✦" },
-  { href: "/planner", label: "الخطة والأقسام", icon: "▦" }
+  { href: "/planner", label: "الخطة والأقسام", icon: "▦" },
+  { href: "/assessment", label: "التقويم التحصيلي", icon: "✓" }
 ];
 
 export function AppNavigation() {
