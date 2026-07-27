@@ -1,0 +1,2 @@
+import { PrintableSummativeAssessment } from "@/components/assessment/printable-summative-assessment";
+export default function AssessmentPreviewPage() { return <section><div className="no-print"><p className="text-sm font-semibold text-emerald-700">Assessment Bank</p><h1 className="mt-1 text-3xl font-bold">معاينة ورقة التقويم التحصيلي</h1><p className="mt-2 text-slate-600">قالب A4 من صفحتين، مبني على بنية التاريخ والجغرافيا للرابعة متوسط وقابل للتعديل قبل الاعتماد.</p></div><div className="mt-7"><PrintableSummativeAssessment /></div></section>; }
