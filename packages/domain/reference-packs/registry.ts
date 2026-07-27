@@ -7,5 +7,8 @@ import { civicEducationGrade2Reference } from "@/packages/domain/reference-packs
 import { historyGrade3Reference } from "@/packages/domain/reference-packs/history-grade-3";
 import { geographyGrade3Reference } from "@/packages/domain/reference-packs/geography-grade-3";
 import { civicEducationGrade3Reference } from "@/packages/domain/reference-packs/civic-education-grade-3";
-export const reviewedReferencePacks: ReferenceSegment[] = [...historyGrade1Reference, ...geographyGrade1Reference, ...civicEducationGrade1Reference, ...historyGrade2Reference, ...civicEducationGrade2Reference, ...historyGrade3Reference, ...geographyGrade3Reference, ...civicEducationGrade3Reference];
+import { historyGrade4Reference } from "@/packages/domain/reference-packs/history-grade-4";
+import { geographyGrade4Reference } from "@/packages/domain/reference-packs/geography-grade-4";
+import { civicEducationGrade4Reference } from "@/packages/domain/reference-packs/civic-education-grade-4";
+export const reviewedReferencePacks: ReferenceSegment[] = [...historyGrade1Reference, ...geographyGrade1Reference, ...civicEducationGrade1Reference, ...historyGrade2Reference, ...civicEducationGrade2Reference, ...historyGrade3Reference, ...geographyGrade3Reference, ...civicEducationGrade3Reference, ...historyGrade4Reference, ...geographyGrade4Reference, ...civicEducationGrade4Reference];
 export function getReviewedReferencePack(subject: ReferenceSubject, grade: ReferenceGrade): ReferenceSegment[] { return reviewedReferencePacks.filter((segment) => segment.subject === subject && segment.grade === grade); }
