@@ -1,0 +1,4 @@
+"use client";
+import { useActionState } from "react";
+import { confirmPlanItemRun, type ConfirmRunState } from "@/app/(app)/plans/[planId]/run-action";
+export function ConfirmPlanItem({planId,itemId,status}:{planId:string;itemId:string;status:string}){const action=confirmPlanItemRun.bind(null,planId,itemId);const initial:ConfirmRunState={};const[state,formAction,pending]=useActionState(action,initial);if(status==="completed")return <span className="text-xs font-semibold text-emerald-700">منفذ</span>;return <form action={formAction} className="mt-2 flex gap-2"><input name="minutes" type="number" defaultValue="55" min="1" max="600" className="w-20 rounded border border-slate-300 p-1 text-xs"/><button disabled={pending} className="rounded bg-emerald-700 px-2 py-1 text-xs text-white">تأكيد التنفيذ</button>{state.error&&<span className="text-xs text-red-700">{state.error}</span>}</form>}
