@@ -1,0 +1,2 @@
+import { AssessmentBuilder } from "@/components/assessment/assessment-builder";
+export default function AssessmentBuilderPage() { return <section><p className="text-sm font-semibold text-emerald-700">Assessment Bank</p><h1 className="mt-1 text-3xl font-bold">محرر التقويم التحصيلي</h1><p className="mt-2 max-w-3xl text-slate-600">ابنِ الوضعيات تدريجياً، واختر المستوى المعرفي والنقاط. لا يعتمد التقويم قبل مطابقة المجموع وبنية الدليل المرجعي.</p><div className="mt-7 max-w-5xl"><AssessmentBuilder /></div></section>; }
