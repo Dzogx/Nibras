@@ -7,5 +7,5 @@ describe("reference plan mapping", () => {
     expect(items[0]).toMatchObject({ title: "الوثائق التاريخية", sortOrder: 0, plannedMinutes: 55 });
     expect(items[0].referenceMetadata).toHaveProperty("citation");
   });
-  it("does not invent a plan for a reference pack that is not imported", () => expect(getReferencePlanItems("geography", "2am")).toEqual([]));
+  it("does not invent a plan for an unsupported reference scope", () => expect(getReferencePlanItems("unknown", "1am")).toEqual([]));
 });

@@ -1,13 +1,1 @@
-{
-  "items": [
-    {
-      "subject": "geography",
-      "grade": "2am",
-      "sourceFile": "المخططات السنوية 2022 جغرافيا السنة الثانية متوسط.pdf",
-      "status": "requires_source_clarification",
-      "reason": "النص المستخرج في صفحات الفصول يعيد كفاءة مرتبطة بأمريكا الجنوبية مع أن موارد الفصل الأول تتعلق بآسيا. لا يمكن اعتماد كفاءات منظمة للتخطيط من دون تأكيد بصري أو مرجع أوضح، لتجنب اختلاق صياغة رسمية.",
-      "allowedWhileBlocked": ["source-cited corpus search"],
-      "blocked": ["structured plan import", "grounded resource generation"]
-    }
-  ]
-}
+{"items":[]}
