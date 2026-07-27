@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getQueuedReferenceDocument, getReferenceImportProgress } from "@/lib/knowledge/import/manifest";
 describe("annual plans import manifest", () => {
-  it("contains all twelve annual-plan references", () => expect(getReferenceImportProgress()).toEqual({ total: 12, activated: 1, queued: 11 }));
+  it("tracks the active reviewed packs against the twelve annual-plan references", () => expect(getReferenceImportProgress()).toEqual({ total: 12, activated: 11, queued: 1 }));
   it("keeps each queued document bound to its checksum and candidate source pages", () => {
     const document = getQueuedReferenceDocument("civic-education", "4am");
     expect(document?.sha256).toHaveLength(64);
