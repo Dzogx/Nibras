@@ -1,0 +1,2 @@
+import { ResourceBuilder } from "@/components/studio/resource-builder";
+export default function ResourceBuilderPage(){return <section><p className="text-sm font-semibold text-emerald-700">Content Studio</p><h1 className="mt-1 text-3xl font-bold">إنشاء مورد تربوي من المرجع</h1><p className="mt-2 text-slate-600">اختر المادة والمستوى والمقطع، ثم أنشئ مسودة تشمل الكفاءة ودليل الإتقان والنشاط والتقويم والمصدر.</p><div className="mt-7 max-w-3xl"><ResourceBuilder/></div></section>;}
