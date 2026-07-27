@@ -7,6 +7,8 @@ create table public.summative_assessments (
   organization_id uuid not null references public.organizations(id) on delete cascade,
   class_id uuid references public.classes(id) on delete set null,
   plan_item_id uuid references public.plan_items(id) on delete set null,
+  subject_id uuid references public.subjects(id) on delete restrict,
+  grade_level_id uuid references public.grade_levels(id) on delete restrict,
   academic_year_id uuid references public.academic_years(id) on delete restrict,
   title text not null check (char_length(trim(title)) between 3 and 300),
   duration_minutes integer not null check (duration_minutes between 10 and 240),
