@@ -1,0 +1,4 @@
+import { ResultsEntry } from "@/components/analytics/results-entry";
+import { createClient } from "@/lib/supabase/server";
+import { getCurrentWorkspaceId } from "@/lib/workspace/current-workspace";
+export default async function AnalyticsPage(){const supabase=await createClient();const workspaceId=await getCurrentWorkspaceId();const {data}=await supabase.from("summative_assessments").select("id,title").eq("organization_id",workspaceId).order("created_at",{ascending:false});return <section><p className="text-sm font-semibold text-emerald-700">Teaching Analytics</p><h1 className="mt-1 text-3xl font-bold">تحليل النتائج والعلاج</h1><p className="mt-2 max-w-3xl text-slate-600">حلل نتائج مجمعة فقط، وحدد الأولويات العلاجية والإثرائية من دون تخزين بيانات فردية للتلاميذ.</p><div className="mt-7 max-w-5xl"><ResultsEntry assessments={data??[]}/></div></section>}
