@@ -9,8 +9,12 @@ export async function importReferencePlanAction(planId: string): Promise<{ error
   const { data: plan, error: planError } = await supabase.from("annual_plans").select("id,classes(subjects(code),grade_levels(code))").eq("id", planId).eq("organization_id", workspaceId).single();
   if (planError || !plan) return { error: "الخطة غير متاحة." };
   const classInfo = Array.isArray(plan.classes) ? plan.classes[0] : plan.classes;
-  const subjectCode = Array.isArray(classInfo?.subjects) ? classInfo.subjects[0]?.code : undefined;
-  const gradeCode = Array.isArray(classInfo?.grade_levels) ? classInfo.grade_levels[0]?.code : undefined;
+  const relationCode = (relation: unknown): string | undefined => {
+    const value = Array.isArray(relation) ? relation[0] : relation;
+    return typeof value === "object" && value !== null && "code" in value && typeof value.code === "string" ? value.code : undefined;
+  };
+  const subjectCode = relationCode(classInfo?.subjects);
+  const gradeCode = relationCode(classInfo?.grade_levels);
   if (!subjectCode || !gradeCode) return { error: "لا يمكن تحديد المادة أو المستوى للقسم." };
   const items = getReferencePlanItems(subjectCode, gradeCode);
   if (!items.length) return { error: "لا تتوفر بعد حزمة مرجعية مستوردة لهذه المادة والمستوى." };
