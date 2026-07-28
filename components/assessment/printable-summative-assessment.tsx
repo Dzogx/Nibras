@@ -1,3 +1,5 @@
+"use client";
+
 type Question = { title: string; points: number; content: React.ReactNode };
 type Section = { subject: string; points: number; simpleQuestions: Question[]; integration: { points: number; context: string; documents: string[]; instruction: string } };
 
