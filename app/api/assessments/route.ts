@@ -2,29 +2,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentWorkspaceId } from "@/lib/workspace/current-workspace";
-import { validateAllocation, type AssessmentGrade, type AssessmentSubject } from "@/lib/assessment/scoring-policy";
-import { getAssessmentStructure } from "@/lib/assessment/structure-policy";
+import { getDomainTotal, validateAllocation, type AssessmentDomain, type AssessmentGrade, type AssessmentSubject } from "@/lib/assessment/scoring-policy";
 import type { CognitiveLevel } from "@/lib/assessment/cognitive-levels";
-
-const levels = ["knowledge", "comprehension", "application", "analysis", "creation", "evaluation"] as const;
-const payloadSchema = z.object({ grade: z.enum(["1am", "2am", "3am", "4am"]), subject: z.enum(["history", "geography", "civic-education"]), title: z.string().trim().min(3).max(300), durationMinutes: z.number().int().min(10).max(240), items: z.array(z.object({ title: z.string().trim().min(3).max(300), level: z.enum(levels), points: z.number().positive().max(100), instruction: z.string().trim().min(3).max(5000) })).min(1) });
-
-export async function POST(request: Request) {
-  const payload = payloadSchema.safeParse(await request.json());
-  if (!payload.success) return NextResponse.json({ error: "بيانات التقويم التحصيلي غير مكتملة." }, { status: 400 });
-  const { grade, subject, items, title, durationMinutes } = payload.data;
-  const totalPoints = items.reduce((sum, item) => sum + item.points, 0);
-  const expectedTotal = getAssessmentStructure(grade as AssessmentGrade, subject as AssessmentSubject).totalPoints;
-  if (totalPoints !== expectedTotal) return NextResponse.json({ error: `مجموع النقاط يجب أن يساوي ${expectedTotal} نقطة.` }, { status: 400 });
-  const subjectAllocationError = subject === "civic-education" ? [] : validateAllocation(items.map((item) => ({ subject, points: item.points })) as Array<{ subject: AssessmentSubject; points: number }>, grade as AssessmentGrade);
-  if (subjectAllocationError.length > 0) return NextResponse.json({ error: subjectAllocationError[0] }, { status: 400 });
-  const supabase = await createClient(); const { data: { user } } = await supabase.auth.getUser(); if (!user) return NextResponse.json({ error: "غير مصرح." }, { status: 401 });
-  const workspaceId = await getCurrentWorkspaceId();
-  const [{ data: subjectRow }, { data: gradeRow }] = await Promise.all([supabase.from("subjects").select("id").eq("code", subject).single(), supabase.from("grade_levels").select("id").eq("code", grade).single()]);
-  if (!subjectRow || !gradeRow) return NextResponse.json({ error: "تعذر تحديد المادة أو المستوى من المرجع." }, { status: 409 });
-  const { data: assessment, error: assessmentError } = await supabase.from("summative_assessments").insert({ organization_id: workspaceId, subject_id: subjectRow.id, grade_level_id: gradeRow.id, title, duration_minutes: durationMinutes, total_points: totalPoints, created_by: user.id }).select("id").single();
-  if (assessmentError || !assessment) return NextResponse.json({ error: "تعذر حفظ التقويم التحصيلي." }, { status: 500 });
-  const { error: itemsError } = await supabase.from("summative_assessment_items").insert(items.map((item, index) => ({ assessment_id: assessment.id, subject_id: subjectRow.id, cognitive_level: item.level as CognitiveLevel, instruction: item.instruction, points: item.points, sort_order: index, expected_answer: { title: item.title } })));
-  if (itemsError) { await supabase.from("summative_assessments").delete().eq("id", assessment.id); return NextResponse.json({ error: "تعذر حفظ عناصر التقويم؛ لم يتم الاحتفاظ بمسودة ناقصة." }, { status: 500 }); }
-  return NextResponse.json({ id: assessment.id }, { status: 201 });
-}
+const levels=["knowledge","comprehension","application","analysis","creation","evaluation"] as const;
+const schema=z.object({grade:z.enum(["1am","2am","3am","4am"]),domain:z.enum(["social-studies","civic-education"]),title:z.string().trim().min(3).max(300),durationMinutes:z.number().int().min(10).max(240),items:z.array(z.object({title:z.string().trim().min(3),subject:z.enum(["history","geography","civic-education"]),level:z.enum(levels),points:z.number().positive(),instruction:z.string().trim().min(3)})).min(1)});
+export async function POST(request:Request){const parsed=schema.safeParse(await request.json());if(!parsed.success)return NextResponse.json({error:"بيانات التقويم التحصيلي غير مكتملة."},{status:400});const p=parsed.data;const domain=p.domain as AssessmentDomain,grade=p.grade as AssessmentGrade;const total=p.items.reduce((s,i)=>s+i.points,0);if(total!==getDomainTotal())return NextResponse.json({error:"مجموع النقاط يجب أن يساوي 20 نقطة."},{status:400});const allocationError=validateAllocation(p.items.map(i=>({subject:i.subject as AssessmentSubject,points:i.points})),grade,domain);if(allocationError.length)return NextResponse.json({error:allocationError[0]},{status:400});const s=await createClient();const{data:{user}}=await s.auth.getUser();if(!user)return NextResponse.json({error:"غير مصرح."},{status:401});const w=await getCurrentWorkspaceId();const[{data:gradeRow},{data:subjects}]=await Promise.all([s.from("grade_levels").select("id").eq("code",grade).single(),s.from("subjects").select("id,code").in("code",domain==="social-studies"?["history","geography"]:["civic-education"])]);if(!gradeRow||!subjects)return NextResponse.json({error:"مرجع المادة أو المستوى غير متاح."},{status:409});const ids=Object.fromEntries(subjects.map(x=>[x.code,x.id]));const{data:assessment,error}=await s.from("summative_assessments").insert({organization_id:w,grade_level_id:gradeRow.id,assessment_domain:domain==="social-studies"?"social_studies":"civic_education",title:p.title,duration_minutes:p.durationMinutes,total_points:total,created_by:user.id}).select("id").single();if(error||!assessment)return NextResponse.json({error:"تعذر حفظ التقويم."},{status:500});const{error:itemError}=await s.from("summative_assessment_items").insert(p.items.map((i,n)=>({assessment_id:assessment.id,subject_id:ids[i.subject],cognitive_level:i.level as CognitiveLevel,instruction:i.instruction,points:i.points,sort_order:n,expected_answer:{title:i.title}})));if(itemError){await s.from("summative_assessments").delete().eq("id",assessment.id);return NextResponse.json({error:"تعذر حفظ الوضعيات."},{status:500});}return NextResponse.json({id:assessment.id},{status:201});}
