@@ -1,29 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-
-export function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [message, setMessage] = useState("");
-
-  async function signIn(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setState("sending");
-    const supabase = createClient();
-    const redirectTo = `${window.location.origin}/auth/callback`;
-    const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: redirectTo } });
-    if (error) { setState("error"); setMessage("تعذر إرسال رابط الدخول. تحقق من البريد أو أعد المحاولة."); return; }
-    setState("sent"); setMessage("أرسلنا رابط دخول آمن إلى بريدك الإلكتروني.");
-  }
-
-  return <form onSubmit={signIn} className="mt-6 space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-    <label className="block text-sm font-medium" htmlFor="email">البريد الإلكتروني</label>
-    <input id="email" type="email" required autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} className="w-full rounded-md border border-slate-300 px-3 py-2" dir="ltr" />
-    <button disabled={state === "sending"} className="w-full rounded-md bg-emerald-700 px-4 py-2 font-semibold text-white disabled:opacity-50" type="submit">
-      {state === "sending" ? "جارٍ الإرسال…" : "إرسال رابط الدخول"}
-    </button>
-    {message && <p role="status" className={state === "error" ? "text-sm text-red-700" : "text-sm text-emerald-700"}>{message}</p>}
-  </form>;
-}
+export function LoginForm(){const[mode,setMode]=useState<"signin"|"signup">("signin"),[email,setEmail]=useState(""),[password,setPassword]=useState(""),[state,setState]=useState<"idle"|"loading"|"error"|"success">("idle"),[message,setMessage]=useState("");async function submit(e:React.FormEvent){e.preventDefault();setState("loading");const s=createClient();if(mode==="signin"){const{error}=await s.auth.signInWithPassword({email,password});if(error){setState("error");setMessage("تعذر تسجيل الدخول. تحقق من البريد وكلمة المرور.");return;}window.location.assign("/dashboard");return;}const{data,error}=await s.auth.signUp({email,password,options:{data:{display_name:email.split("@")[0]}}});if(error){setState("error");setMessage(error.message);return;}setState("success");setMessage(data.session?"تم إنشاء الحساب وتسجيل الدخول بنجاح.":"تم إنشاء الحساب. تحقق من إعداد Confirm email في Supabase إذا لم يتم تسجيل الدخول تلقائياً.");if(data.session)window.location.assign("/dashboard");}return <form onSubmit={submit} className="mt-6 space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm"><div className="flex rounded-lg bg-slate-100 p-1"><button type="button" onClick={()=>setMode("signin")} className={`flex-1 rounded-md py-2 text-sm ${mode==="signin"?"bg-white font-bold shadow":""}`}>تسجيل الدخول</button><button type="button" onClick={()=>setMode("signup")} className={`flex-1 rounded-md py-2 text-sm ${mode==="signup"?"bg-white font-bold shadow":""}`}>إنشاء حساب</button></div><label className="block text-sm font-medium">البريد الإلكتروني<input type="email" required autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2" dir="ltr"/></label><label className="block text-sm font-medium">كلمة المرور<input type="password" required minLength={8} autoComplete={mode==="signin"?"current-password":"new-password"} value={password} onChange={e=>setPassword(e.target.value)} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2" dir="ltr"/></label><button disabled={state==="loading"} className="w-full rounded-md bg-emerald-700 px-4 py-2 font-semibold text-white disabled:opacity-50">{state==="loading"?"جارٍ المعالجة…":mode==="signin"?"دخول":"إنشاء الحساب"}</button>{message&&<p role="status" className={state==="error"?"text-sm text-red-700":"text-sm text-emerald-700"}>{message}</p>}<p className="text-xs text-slate-500">النسخة الشخصية تستخدم البريد وكلمة المرور لتفادي مشاكل روابط الدخول المؤقتة.</p></form>}
