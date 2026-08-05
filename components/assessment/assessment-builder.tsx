@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { cognitiveLevels, type CognitiveLevel } from "@/lib/assessment/cognitive-levels";
 import { getDomainTotal, getHistoryGeographyAllocation, type AssessmentDomain, type AssessmentGrade, type AssessmentSubject } from "@/lib/assessment/scoring-policy";
-type DraftItem={id:string;title:string;subject:AssessmentSubject;kind:"simple"|"integrative";level:CognitiveLevel;points:number;instruction:string;context?:string;sources?:string[];expectedOutput?:string};
+type DraftItem={id:string;title:string;subject:AssessmentSubject;kind:"simple"|"integrative";level:CognitiveLevel;points:number;instruction:string;answerKey?:string;context?:string;sources?:string[];expectedOutput?:string};
 const grades:[AssessmentGrade,string][]=[["1am","الأولى متوسط"],["2am","الثانية متوسط"],["3am","الثالثة متوسط"],["4am","الرابعة متوسط"]];
 const label:Record<AssessmentSubject,string>={history:"التاريخ",geography:"الجغرافيا","civic-education":"التربية المدنية"};
 const makeItem=(subject:AssessmentSubject):DraftItem=>({id:crypto.randomUUID(),title:"وضعية بسيطة",subject,kind:"simple",level:"knowledge",points:1,instruction:""});
