@@ -1,0 +1,1 @@
+import{describe,it,expect}from"vitest";import{adviseAssessment}from"@/lib/assessment/advisor";describe("assessment advisor",()=>it("uses completed coverage and preserves 20 points",()=>{const a=adviseAssessment("4am","social-studies",[{id:"1",title:"الوثائق"}]);expect(a.total).toBe(20);expect(a.completed).toHaveLength(1);expect(a.lowerRatio).toBeGreaterThan(0.5)}));
