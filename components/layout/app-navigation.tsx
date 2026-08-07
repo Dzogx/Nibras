@@ -7,6 +7,7 @@ const links = [
   { href: "/studio", label: "إنشاء مورد", icon: "✦" },
   { href: "/planner", label: "الخطة والأقسام", icon: "▦" },
   { href: "/lesson", label: "حضّر الحصة", icon: "✦" },
+  { href: "/notebook", label: "الدفتر اليومي", icon: "▤" },
   { href: "/assessment", label: "التقويم التحصيلي", icon: "✓" },
   { href: "/analytics", label: "النتائج والعلاج", icon: "◌" },
   { href: "/inspector", label: "مراجعة الموارد", icon: "◉" }
