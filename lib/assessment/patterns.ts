@@ -1,0 +1,3 @@
+import type { AssessmentDomain,AssessmentGrade } from "@/lib/assessment/scoring-policy";
+export type PatternKind='formative_test'|'summative_term'|'remedial'|'bem_practice';
+export function recommendPattern(grade:AssessmentGrade,domain:AssessmentDomain,kind:PatternKind){if(kind==='bem_practice')return{kind,requiresCompletedCoverage:false,evidence:'official',note:'تدريب BEM منفصل عن التقويم الفصلي ويستعمل قواعد الرابعة فقط.'};if(kind==='remedial')return{kind,requiresCompletedCoverage:true,evidence:'advisory',note:'يقوم على الأخطاء المتكررة والتحقق اللاحق.'};return{kind,requiresCompletedCoverage:true,evidence:'field_observed',note:domain==='social-studies'?'اجتماعيات مركبة: تاريخ + جغرافيا ضمن نطاق الفصل المنجز.':'تربية مدنية مستقلة ضمن نطاق الفصل المنجز.'};}
